@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@400..700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <title>Flora: The Ultimate Makeup Brand</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: "Edu NSW ACT Foundation", cursive;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background-color: #343a40;
+            color: rgb(0, 0, 0);
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            background-image: url("/static/jake-peterson-VJ4pn_PSBLo-unsplash.jpg");
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #e5a961;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #fff;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #d9c0c0;
+            color: #333;
+        }
+
+        /* Product styles */
+        .product {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        .product1 img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        .product1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product2 img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .product2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product3 img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        .add-to-cart {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-to-cart>table {
+            margin: 40px 0;
+            font-size: 18px;
+        }
+
+        .add-to-cart:hover {
+            background-color: #45a049;
+        }
+
+        .about {
+            text-align: center;
+        }
+
+        .contact {
+            text-align: left;
+        }
+
+    .gallery-card {
+    margin: 20px;
+    width: 250px;
+    height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block; /* To align cards in a straight line */
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.gallery-card h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.gallery-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            get_orders()
+
+        });
+
+        function fun1() {
+            const name = $('#Product').val();
+            const quantity = $('#p1').val();
+            alert(name)
+            alert(quantity)
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/flora',
+                data: { Product_name: name, Quantity: quantity },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload();
+                }
+            });
+        }
+
+
+
+
+        function get_orders() {
+            $.ajax({
+                type: 'GET',
+                url: '/flora',
+                data: {},
+                success: function (response) {
+                    let orders = response['orders'];
+                    for (let i = 0; i < orders.length; i++) {
+                        const order = orders[i];
+                        const temp_html = `
+                            <tr>
+                                <td>${order['Product_name']}</td>
+                                <td>${order['Quantity']}</td>
+                            </tr>
+                        `
+                        $('#add-to-cart').append(temp_html);
+                    }
+                }
+            });
+        }
+
+
+
+        function fun2() {
+            let name = $('#Product1').val();
+            let quantity = $('#p2').val();
+            alert(name)
+            alert(quantity)
+            $.ajax({
+                type: 'POST',
+                url: '/flora',
+                data: { Product_name: name, Quantity: quantity },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload();
+                }
+            });
+        }
+
+        function fun3() {
+            let name = $('#Product2').val();
+            let quantity = $('#p3').val();
+            alert(name)
+            alert(quantity)
+            $.ajax({
+                type: 'POST',
+                url: '/flora',
+                data: { Product_name: name, Quantity: quantity },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload();
+                }
+            });
+        }
+        function fun4() {
+            let name = $('#Product3').val();
+            let quantity = $('#p4').val();
+            alert(name)
+            alert(quantity)
+            $.ajax({
+                type: 'POST',
+                url: '/flora',
+                data: { Product_name: name, Quantity: quantity },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload();
+                }
+            });
+        }
+        function fun5() {
+            let name = $('#Product4').val();
+            let quantity = $('#p5').val();
+            alert(name)
+            alert(quantity)
+            $.ajax({
+                type: 'POST',
+                url: '/flora',
+                data: { Product_name: name, Quantity: quantity },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload();
+                }
+            });
+        }
+        function fun6() {
+            let name = $('#Product5').val();
+            let quantity = $('#p6').val();
+            alert(name)
+            alert(quantity)
+            $.ajax({
+                type: 'POST',
+                url: '/flora',
+                data: { Product_name: name, Quantity: quantity },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+
+        <nav>
+            <ul style="list-style-type: none; margin: 0; padding: 0; text-align: center;">
+                <li style="display: inline; margin-right: 20px;"><a href="#home"
+                        style="text-decoration: none; color: #fff;">Home</a></li>
+                        <li class="nav-item dropdown" style="display: inline; margin-right: 20px;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none; color: #fff;">
+                                Products
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#product1">Maybelline Hyper Precise Liquid Eyeliner</a>
+                                <a class="dropdown-item" href="#product2">Blush On: Pink</a>
+                                <a class="dropdown-item" href="#product3">Strawberry Tinted Lip Gloss</a>
+                                <a class="dropdown-item" href="#product4">Mascara Long-wearing Formula</a>
+                                <a class="dropdown-item" href="#product5">Contour</a>
+                                <a class="dropdown-item" href="#product6">Foundation</a>
+                            </div>
+                        </li>
+                <li style="display: inline; margin-right: 20px;"><a href="#about"
+                        style="text-decoration: none; color: #fff;">About Us</a></li>
+                <li style="display: inline;"><a href="#contact" style="text-decoration: none; color: #fff;">Contact</a>
+                </li>
+                <li style="display: inline; margin-right: 20px;"><a href="#gallery" style="text-decoration: none; color: #fff;">Gallery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <div class="hero">
+            <h1>Welcome to Our Makeup Brand</h1>
+            <p>Discover the beauty within</p>
+            <a href="#products" class="btn">Explore Products</a>
+        </div>
+    </section>
+
+    <section style="margin-top: 20px;" id="products">
+        <div class="card-deck">
+            <div class="card">
+              <img class="card-img-top" src="https://static.beautytocare.com/media/catalog/product/m/a/maybelline-master-precise-liquid-eyeliner-black-1-1ml.jpg" alt="Card image cap">
+              <div style="text-align: center;" class= "card-body">
+                <h5 class="card-title">Maybelline Hyper Precise Liquid Eyeliner Black 1ml</h5>
+                <p style="text-align: center;" class="card-text"><form action="">
+                    <input type="text" value="Maybelline Hyper Precise Liquid Eyeliner Black 1ml" id="Product"
+                        style="display: none;">
+                    <select class="form-select" id="p1">
+
+                        <option selected>-- Select Quantity</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </form>
+                <button class="add-to-cart" onclick="fun1()">Order</button></p>
+                
+              </div>
+            </div>
+            <div class="card">
+              <img class="card-img-top" src="https://img.forestessentialsindia.com/pub/media/catalog/product/2/1/21284_satin_cheek_tint_noor_nikhaar_gulaabi_5g_product_display_1.jpg" alt="Card image cap">
+              <div style="text-align: center;" class= "card-body">
+                <h5 class="card-title">Blush On: Pink</h5>
+                <p class="card-text"><form>
+                    <input type="text" value="Blush On: Pink" id="Product1" style="display: none;">
+                    <select class="form-select" id="p2">
+                        <option selected>-- Select Quantity</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <button class="add-to-cart" onclick="fun2()">Add to Cart</button>
+                </form>
+                </p>
+                
+              </div>
+            </div>
+            <div class="card">
+              <img class="card-img-top" src="https://www.dotandkey.com/cdn/shop/files/1_15ea4aea-2ec6-42f6-ad68-49f5770b9828_grande.jpg?v=1705741736" alt="Card image cap">
+              <div style="text-align: center;" class= "card-body">
+                <h5 class="card-title">Strawberry Tinted Lip Gloss</h5>
+                <p class="card-text"><form action="">
+                    <input type="text" value="Strawberry Tinted Lip Gloss" id="Product2" style="display: none;">
+                    <select class="form-select" id="p3">
+                        <option selected>-- Select Quantity</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <button class="add-to-cart" onclick="fun3()">Add to Cart</button>
+                </form>
+            </p>
+                
+              </div>
+            </div>
+          </div>
+          <div class="card-deck">
+            <div class="card">
+              <img class="card-img-top" src="https://m.clinique.in/media/export/cms/products/1200x1500/cl_sku_KGMR01_1200x1500_0.png" alt="Card image cap">
+              <div style="text-align: center;" class= "card-body">
+                <h5 class="card-title">Mascara long-wearing Formula</h5>
+                <p style="text-align: center;" class="card-text"><form action="">
+                    <input type="text" value="Mascara long-wearing Formula" id="Product3"
+                        style="display: none;">
+                    <select class="form-select" id="p4">
+
+                        <option selected>-- Select Quantity</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </form>
+                <button class="add-to-cart" onclick="fun4()">Order</button></p>
+              </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="https://files.myglamm.com/site-images/original/1-Wheat.jpg" alt="Card image cap">
+                <div style="text-align: center;" class= "card-body">
+                  <h5 class="card-title">Super Serum Liquid Foundation</h5>
+                  <p class="card-text"><form>
+                    <input type="text" value="Super Serum Liquid Foundation" id="Product4"
+                        style="display: none;">
+                      <select class="form-select" id="p5">
+                          <option selected>-- Select Quantity</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                      </select>
+                      <button class="add-to-cart" onclick="fun5()">Add to Cart</button>
+                  </form>
+                  </p>
+                  
+                </div>
+              </div>
+              <div class="card">
+                <img class="card-img-top" src="https://m.media-amazon.com/images/I/318BrVXRmUL.jpg" alt="Card image cap">
+                <div style="text-align: center;" class= "card-body">
+                  <h5 class="card-title">Waterproof and long-lasting Compact powder</h5>
+                  <p class="card-text"><form>
+                    <input type="text" value="Super Serum Liquid Foundation" id="Product5"
+                        style="display: none;">
+                      <select class="form-select" id="p6">
+                          <option selected>-- Select Quantity</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                      </select>
+                      <button class="add-to-cart" onclick="fun6()">Add to Cart</button>
+                  </form>
+                  </p>
+                  
+                </div>
+              </div>     
+    </section>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Product_Name</th>
+                <th scope="col">Quantity</th>
+            </tr>
+        </thead>
+        <tbody id='add-to-cart'>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <section id="about">
+        <div class="about">
+            <h2>About Us</h2>
+            <p>Learn about our mission and values.
+                Most trusted and Must try products.
+                No allergic chemicals used in our makeup products.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact">
+            <h2>Contact Us</h2>
+            <p>For any queries: contact- 9818911915</p>
+            <form>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br>
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message"></textarea><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </section>
+    <section id="gallery">
+    <h2>Gallery</h2>
+        <div class="gallery">
+            <div class="card-deck">
+                <div class="card">
+                  <img class="card-img-top" src="https://static.beautytocare.com/media/catalog/product/m/a/maybelline-master-precise-liquid-eyeliner-black-1-1ml.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Maybelline Hyper Precise Liquid Eyeliner Black 1ml</h5>
+                  </div>
+                </div>
+                <div class="card">
+                  <img class="card-img-top" src="https://img.forestessentialsindia.com/pub/media/catalog/product/2/1/21284_satin_cheek_tint_noor_nikhaar_gulaabi_5g_product_display_1.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Blush On: Pink</h5>
+                  </div>
+                </div>
+                <div class="card">
+                  <img class="card-img-top" src="https://www.dotandkey.com/cdn/shop/files/1_15ea4aea-2ec6-42f6-ad68-49f5770b9828_grande.jpg?v=1705741736" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Strawberry Tinted Lip Gloss</h5>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="card-deck">
+            <div class="card">
+              <img class="card-img-top" src="https://m.clinique.in/media/export/cms/products/1200x1500/cl_sku_KGMR01_1200x1500_0.png" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Mascara long-wearing Formula</h5>
+            </div>
+            </div>
+            <div class="card">
+              <img class="card-img-top" src="https://files.myglamm.com/site-images/original/1-Wheat.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Super Serum Liquid Foundation</h5>
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="https://images-static.nykaa.com/media/catalog/product/a/7/a7ec4b6MYGLA00000634_2.jpg?tr=w-344,h-344,cm-pad_resize" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="https://images-static.nykaa.com/media/catalog/product/a/7/a7ec4b6MYGLA00000634_3.jpg?tr=w-344,h-344,cm-pad_resize" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="https://images-static.nykaa.com/media/catalog/product/a/7/a7ec4b6MYGLA00000634_4.jpg?tr=w-344,h-344,cm-pad_resize" alt="Third slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="https://images-static.nykaa.com/media/catalog/product/a/7/a7ec4b6MYGLA00000634_5.jpg?tr=w-344,h-344,cm-pad_resize" alt="Fourth slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="https://images-static.nykaa.com/media/catalog/product/a/7/a7ec4b6MYGLA00000634_7.jpg?tr=w-344,h-344,cm-pad_resize" alt="Fifth slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            </div>
+            <div class="card">
+              <img class="card-img-top" src="https://m.media-amazon.com/images/I/318BrVXRmUL.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Waterproof and long-lasting Compact powder</h5>
+            </div>
+          </div>
+    </section>
+
+</body>
+</html>
